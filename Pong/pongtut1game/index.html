@@ -7,8 +7,15 @@
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="shortcut icon" href="TemplateData/favicon.ico" />
     <script src="TemplateData/UnityProgress.js"></script>
+    <script type="text/javascript" >
+        function avoidDefaultKey(event) {
+            if(event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40) { // You can change '9' for the key that you need to ignore.
+                event.preventDefault();
+            }
+        }
+    </script>
   </head>
-  <body class="template">
+  <body class="template" onkeydown="avoidDefaultKey(event);">
 	  <script>
 window.onload = function(){
     window.focus();
@@ -44,7 +51,7 @@ window.onclick = function(){
     canvas: document.getElementById('canvas'),
     progress: null,
     setStatus: function(text) {
-      if (this.progress == null) 
+      if (this.progress == null)
       {
         if (typeof UnityProgress != 'function')
           return;
@@ -56,7 +63,7 @@ window.onclick = function(){
       var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
       if (m)
         this.progress.SetProgress (parseInt(m[2])/parseInt(m[4]));
-      if (text === "") 
+      if (text === "")
         this.progress.Clear()
     },
     totalDependencies: 0,
@@ -78,7 +85,7 @@ window.onclick = function(){
   codeXHR.open('GET', 'Release/pongtut1game.js', true);
   codeXHR.onload = function() {
     var code = codeXHR.responseText;
-    if (!Math.fround) { 
+    if (!Math.fround) {
 try {
   console.log('optimizing out Math.fround calls');
   var m = /var ([^=]+)=global\.Math\.fround;/.exec(code);
